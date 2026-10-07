@@ -25,7 +25,7 @@ export default function SearchBox({ articles }) {
           type="search"
           placeholder="Search kitchen, storage, small spaces..."
           value={query}
-          aria-controls="search-results"
+          aria-controls={query.trim().length >= 2 ? 'search-results' : undefined}
           aria-describedby="search-help"
           onKeyDown={(event) => { if (event.key === 'Escape') setQuery(''); }}
           onChange={(event) => setQuery(event.target.value)}
