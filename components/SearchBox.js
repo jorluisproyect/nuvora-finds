@@ -25,11 +25,16 @@ export default function SearchBox({ articles }) {
           type="search"
           placeholder="Search kitchen, storage, small spaces..."
           value={query}
+          aria-controls="search-results"
+          aria-describedby="search-help"
+          onKeyDown={(event) => { if (event.key === 'Escape') setQuery(''); }}
           onChange={(event) => setQuery(event.target.value)}
         />
       </div>
+      <p id="search-help" className="search-help">Type at least two characters to find a guide. Press Escape to clear.</p>
       {query.trim().length >= 2 && (
-        <div className="search-results">
+        <div className="search-results" id="search-results" aria-label="Search results">
+          <p className="sr-only" role="status">{matches.length ? `${matches.length} matching guides` : 'No matching guides'}</p>
           {matches.length ? matches.map((article) => (
             <Link href={"/article/" + article.slug} key={article.slug} onClick={() => setQuery("")}>
               <strong>{article.title}</strong>

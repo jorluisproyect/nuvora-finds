@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { articles, categories, getCategory } from "../../../lib/content";
+import { pageMetadata, breadcrumbSchema } from '../../../lib/seo';
+import StructuredData from '../../../components/StructuredData';
 
 export function generateStaticParams() {
   return categories.map((category) => ({ slug: category.slug }));
@@ -9,10 +11,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const category = getCategory(slug);
-  return category ? {
-    title: category.name,
-    description: category.description
-  } : {};
+  return category ? pageMetadata(category.name + ' Ideas & Guides', category.description, '/category/' + category.slug) : {};
 }
 
 export default async function CategoryPage({ params }) {
@@ -23,6 +22,7 @@ export default async function CategoryPage({ params }) {
 
   return (
     <section className="section page-section">
+      <StructuredData data={breadcrumbSchema([{ name: 'Nuvora Finds', path: '/' }, { name: category.name, path: '/category/' + category.slug }])} />
       <div className="page-hero">
         <span className="category-icon large">{category.icon}</span>
         <span className="eyebrow">NUVORA CATEGORY</span>

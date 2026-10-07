@@ -6,6 +6,6 @@ export default function sitemap() {
   return [
     ...staticPages.map((path) => ({ url: base + path, changeFrequency: path === "" ? "weekly" : "monthly", priority: path === "" ? 1 : 0.5 })),
     ...categories.map((category) => ({ url: base + "/category/" + category.slug, changeFrequency: "weekly", priority: 0.7 })),
-    ...articles.map((article) => ({ url: base + "/article/" + article.slug, changeFrequency: "monthly", priority: 0.8 }))
+    ...articles.map((article) => ({ url: base + "/article/" + article.slug, lastModified: article.updatedAt, changeFrequency: "monthly", priority: 0.8 }))
   ];
 }

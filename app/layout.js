@@ -1,24 +1,33 @@
 import "./globals.css";
 import Link from "next/link";
+import MobileNav from '../components/MobileNav';
+import { siteUrl, siteDescription } from '../lib/seo';
+import StructuredData from '../components/StructuredData';
+import { amazonTagConfigured } from '../lib/amazon';
+import SiteAnalytics from '../components/SiteAnalytics';
 
 export const metadata = {
-  metadataBase: new URL("https://nuvora-finds.vercel.app"),
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Nuvora Finds | Smart finds for everyday living",
+    default: "Nuvora Finds | Smart finds for better organized spaces",
     template: "%s | Nuvora Finds"
   },
-  description: "Useful ideas and thoughtful finds for a calmer, smarter home.",
+  description: siteDescription,
   openGraph: {
     title: "Nuvora Finds",
-    description: "Smart finds for everyday living.",
-    type: "website"
-  }
+    description: siteDescription,
+    type: "website", siteName: 'Nuvora Finds', locale: 'en_US', images: ['/opengraph-image'],
+  },
+  twitter: { card: 'summary_large_image', title: 'Nuvora Finds', description: siteDescription, images: ['/opengraph-image'] },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        <a className="skip-link" href="#main-content">Skip to content</a>
+        <StructuredData data={{ '@context': 'https://schema.org', '@type': 'Organization', name: 'Nuvora Finds', url: siteUrl }} />
         <header className="site-header">
           <Link className="brand" href="/">
             <span className="brand-mark">N</span>
@@ -31,8 +40,9 @@ export default function RootLayout({ children }) {
             <Link href="/category/small-spaces">Small Spaces</Link>
             <Link href="/picks">Picks</Link>
           </nav>
+          <MobileNav />
         </header>
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
         <footer className="site-footer">
           <div>
             <Link className="footer-brand" href="/">Nuvora Finds</Link>
@@ -46,7 +56,9 @@ export default function RootLayout({ children }) {
             <Link href="/disclosure">Affiliate disclosure</Link>
           </div>
           <p className="copyright">© {new Date().getFullYear()} Nuvora Finds.</p>
+          <p className="footer-disclosure">{amazonTagConfigured() ? 'As an Amazon Associate I earn from qualifying purchases.' : 'Affiliate links are not currently active. Future qualifying purchases may earn us a commission at no additional cost to you.'} <Link href="/disclosure">Read our disclosure</Link>.</p>
         </footer>
+        <SiteAnalytics />
       </body>
     </html>
   );

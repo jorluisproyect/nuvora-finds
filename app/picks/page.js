@@ -1,16 +1,14 @@
 import Link from "next/link";
 import { articles } from "../../lib/content";
+import { pageMetadata } from '../../lib/seo';
 
-export const metadata = {
-  title: "Nuvora Picks",
-  description: "A curated starting point for useful home, kitchen and organization ideas."
-};
+export const metadata = pageMetadata('Nuvora Picks', 'A curated starting point for useful home, kitchen and organization ideas.', '/picks');
 
 export default function PicksPage() {
   return (
     <section className="section page-section">
       <div className="page-hero split-hero">
-        <div><span className="eyebrow">CURATED BY NUVORA</span><h1>Our current picks.</h1><p>Not products yet—ideas. We are building a trustworthy editorial base before adding affiliate recommendations.</p></div>
+        <div><span className="eyebrow">CURATED BY NUVORA</span><h1>Good ideas. Thoughtfully chosen.</h1><p>Our starting points for calmer rooms, practical storage and easier daily routines. Explore the problem, compare the options and use what suits your home.</p></div>
         <div className="pick-stamp">NF<br/><small>01</small></div>
       </div>
       <div className="article-grid">

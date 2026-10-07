@@ -1,6 +1,10 @@
 import Link from "next/link";
 import SearchBox from "../components/SearchBox";
 import { articles, categories } from "../lib/content";
+import ArticleCard from '../components/ArticleCard';
+import { pageMetadata, siteDescription } from '../lib/seo';
+
+export const metadata = pageMetadata('Smart Finds for Better Organized Spaces', siteDescription, '/');
 
 export default function HomePage() {
   const featured = articles.filter((article) => article.featured);
@@ -9,7 +13,7 @@ export default function HomePage() {
       <section className="hero">
         <div className="hero-copy">
           <span className="eyebrow">SMARTER EVERYDAY LIVING</span>
-          <h1>Useful ideas for a home that works <em>better.</em></h1>
+          <h1>Smart finds for better organized <em>spaces.</em></h1>
           <p>Nuvora Finds curates practical solutions for kitchens, organization, small spaces and everyday routines—without the clutter.</p>
           <div className="hero-actions">
             <Link className="button button-dark" href="/picks">Explore our picks</Link>
@@ -45,24 +49,19 @@ export default function HomePage() {
 
       <section className="section tone-section">
         <div className="section-heading">
-          <div><span className="eyebrow">EDITOR'S STARTING POINTS</span><h2>Ideas worth saving.</h2></div>
+          <div><span className="eyebrow">EDITOR&apos;S STARTING POINTS</span><h2>Ideas worth saving.</h2></div>
           <Link className="text-link" href="/picks">See all picks →</Link>
         </div>
         <div className="article-grid featured-grid">
-          {featured.map((article, index) => (
-            <article className={"article-card accent-" + article.accent} key={article.slug}>
-              <div className="article-visual"><span>{String(index + 1).padStart(2, "0")}</span><b>{article.category}</b></div>
-              <div className="article-body">
-                <span className="meta">{article.category} · {article.readTime}</span>
-                <h3><Link href={"/article/" + article.slug}>{article.title}</Link></h3>
-                <p>{article.excerpt}</p>
-                <Link className="text-link" href={"/article/" + article.slug}>Read the guide →</Link>
-              </div>
-            </article>
-          ))}
+          {featured.map((article, index) => <ArticleCard article={article} index={index} key={article.slug} />)}
         </div>
       </section>
 
+      <section className="section">
+        <div className="section-heading"><div><span className="eyebrow">LATEST GUIDES</span><h2>A little more room for everyday life.</h2></div><p>Updated October 7, 2026. Start with one space and one useful change.</p></div>
+        <div className="article-grid">{[...articles].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)).filter((article) => !article.featured).slice(0, 6).map((article, index) => <ArticleCard key={article.slug} article={article} index={index} />)}</div>
+      </section>
+      <section className="section picks-banner"><div><span className="eyebrow">NUVORA PICKS</span><h2>Find the right idea before the next purchase.</h2><p>Practical starting points for your kitchen, daily routines and the corners that never seem big enough.</p></div><Link className="button button-dark" href="/picks">Explore Nuvora Picks →</Link></section>
       <section className="section manifesto">
         <span className="eyebrow">OUR FILTER</span>
         <h2>Useful first. Beautiful second. Hype never.</h2>
