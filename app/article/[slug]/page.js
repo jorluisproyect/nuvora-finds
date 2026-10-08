@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { articles, getArticle } from "../../../lib/content";
-import { articleSchema, breadcrumbSchema, pageMetadata } from '../../../lib/seo';
+import { articleSchema, breadcrumbSchema, pageMetadata, siteUrl } from '../../../lib/seo';
+import { formatDate } from '../../../lib/dates';
 import StructuredData from '../../../components/StructuredData';
 import ProductRecommendations from '../../../components/ProductRecommendations';
 
@@ -14,6 +15,7 @@ export async function generateMetadata({ params }) {
   const article = getArticle(slug);
   return article ? pageMetadata(article.title, article.excerpt, '/article/' + article.slug, {
     type: 'article', publishedTime: article.publishedAt, modifiedTime: article.updatedAt, authors: [article.author],
+    images: [{ url: '/article/' + article.slug + '/share', width: 1200, height: 630, alt: article.title }],
   }) : {};
 }
 
@@ -37,7 +39,7 @@ export default async function ArticlePage({ params }) {
           <Link className="eyebrow article-category-link" href={"/category/" + article.categorySlug}>{article.category}</Link>
           <h1>{article.title}</h1>
           <p>{article.excerpt}</p>
-          <p className="article-byline">By <Link href="/about">{article.author}</Link> · {article.readTime} read<br />Published <time dateTime={article.publishedAt}>September 20, 2026</time> · Updated <time dateTime={article.updatedAt}>October 7, 2026</time></p>
+          <p className="article-byline">By <Link href="/about">{article.author}</Link> · {article.readTime} read<br />Published <time dateTime={article.publishedAt}>{formatDate(article.publishedAt)}</time> · Updated <time dateTime={article.updatedAt}>{formatDate(article.updatedAt)}</time></p>
         </div>
         <div className="article-hero-mark">NF</div>
       </header>
@@ -46,7 +48,7 @@ export default async function ArticlePage({ params }) {
         <aside className="article-aside">
           <span className="eyebrow">SAVE THE IDEA</span>
           <p>Useful enough to revisit? Save this page to your home or organization board.</p>
-          <div className="mini-note">Pinterest-ready graphics will be added as the Nuvora library grows.</div>
+          <a className="button pinterest-save" href={'https://www.pinterest.com/pin/create/button/?' + new URLSearchParams({ url: siteUrl + '/article/' + article.slug, media: siteUrl + '/article/' + article.slug + '/share', description: article.title }).toString()} target="_blank" rel="noopener noreferrer">Save to Pinterest<span className="sr-only"> (opens in a new tab)</span></a>
           <nav className="contents" aria-label="In this guide"><h2>In this guide</h2>{article.sections.map((section, index) => <a href={'#section-' + (index + 1)} key={section.heading}>{section.heading}</a>)}</nav>
         </aside>
         <div className="article-content">

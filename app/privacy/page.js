@@ -7,7 +7,7 @@ export default function PrivacyPage() {
     <section className="section prose-page">
       <span className="eyebrow">LEGAL</span>
       <h1>Privacy Policy</h1>
-      <p>Last updated: October 7, 2026.</p>
+      <p>Last updated: October 8, 2026.</p>
       <h2>Information we collect</h2>
       <p>Nuvora Finds currently operates as a content website and does not require visitors to create accounts or submit personal information.</p>
       <h2>Analytics and hosting</h2>
@@ -20,6 +20,7 @@ export default function PrivacyPage() {
       <h2>Future services</h2>
       <p>When you follow an external link, that website processes information under its own policy. Future Amazon links will include an affiliate tracking tag so Amazon can attribute qualifying purchases. No Amazon affiliate links are currently active, and Nuvora Finds does not receive your Amazon payment or order details.</p>
       <h2>Feedback and your choices</h2>
+      <p>Saving a guide to Pinterest opens Pinterest with the public article URL, title and editorial image URL. The site does not load Pinterest tracking scripts or share your search text. Pinterest handles your account and any pin you create under its own privacy policy.</p>
       <p>Our public feedback channel is hosted by GitHub. Information you submit there is visible publicly and handled under GitHub’s terms and privacy policy. Do not include sensitive information. You can choose not to submit feedback or follow external links. Contact us about a privacy concern through the channel described on our contact page.</p>
       <h2>Questions</h2>
       <p><Link href="/contact">Visit Contact</Link> for the current feedback channel. This policy will be updated when our data practices change.</p>

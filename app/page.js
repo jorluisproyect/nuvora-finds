@@ -3,11 +3,13 @@ import SearchBox from "../components/SearchBox";
 import { articles, categories } from "../lib/content";
 import ArticleCard from '../components/ArticleCard';
 import { pageMetadata, siteDescription } from '../lib/seo';
+import { formatDate } from '../lib/dates';
 
 export const metadata = pageMetadata('Smart Finds for Better Organized Spaces', siteDescription, '/');
 
 export default function HomePage() {
   const featured = articles.filter((article) => article.featured);
+  const latestUpdate = articles.map((article) => article.updatedAt).sort().at(-1);
   return (
     <>
       <section className="hero">
@@ -58,7 +60,7 @@ export default function HomePage() {
       </section>
 
       <section className="section">
-        <div className="section-heading"><div><span className="eyebrow">LATEST GUIDES</span><h2>A little more room for everyday life.</h2></div><p>Updated October 7, 2026. Start with one space and one useful change.</p></div>
+        <div className="section-heading"><div><span className="eyebrow">LATEST GUIDES</span><h2>A little more room for everyday life.</h2></div><p>Updated <time dateTime={latestUpdate}>{formatDate(latestUpdate)}</time>. Start with one space and one useful change.</p></div>
         <div className="article-grid">{[...articles].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)).filter((article) => !article.featured).slice(0, 6).map((article, index) => <ArticleCard key={article.slug} article={article} index={index} />)}</div>
       </section>
       <section className="section picks-banner"><div><span className="eyebrow">NUVORA PICKS</span><h2>Find the right idea before the next purchase.</h2><p>Practical starting points for your kitchen, daily routines and the corners that never seem big enough.</p></div><Link className="button button-dark" href="/picks">Explore Nuvora Picks →</Link></section>

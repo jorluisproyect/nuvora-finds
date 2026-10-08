@@ -222,6 +222,7 @@ button, input { font: inherit; }
 }
 .article-aside { color: var(--muted); font-size: 13px; position: sticky; top: 30px; align-self: flex-start; }
 .mini-note { margin-top: 20px; padding: 14px; background: #e7ebe5; border-radius: 14px; }
+.pinterest-save { margin-top: 12px; border: 1px solid var(--line); color: var(--ink); background: var(--white); }
 .article-content .lead { font-size: 22px; line-height: 1.55; color: #39433d; }
 .article-content > section { margin: 54px 0; }
 .section-number { color: var(--sage-dark); font-weight: 800; font-size: 12px; }

@@ -16,6 +16,10 @@ A lightweight editorial discovery site for practical home, kitchen, organization
 Use Node.js 24 (matching the existing Vercel project). Run `npm install`,
 `npm run lint`, `npm test`, and `npm run build`. `npm start` serves the
 production build locally. The lockfile is committed for reproducible installs.
+With that server running, `npm run audit:site` checks all 21 editorial pages,
+their metadata, internal links, static assets, social images, sitemap, robots,
+redirects and genuine 404 responses. To verify production, run
+`npm run audit:site -- https://nuvora-finds.vercel.app`.
 
 ## Editorial library
 
@@ -27,6 +31,10 @@ the substantive additions in `lib/editorial.js`. The four primary categories
 remain at `/category/home`, `/category/kitchen`, `/category/organization` and
 `/category/small-spaces`. Short category routes redirect to these canonicals;
 the former Useful Finds category redirects to Home.
+Each article has its own statically generated 1200×630 editorial image at
+`/article/[slug]/share`, used by Open Graph, Twitter, Article schema and the
+Pinterest save link. These are original branded graphics, not product images.
+Dates are formatted from content records in UTC instead of hardcoded bylines.
 
 ## Activate Amazon later
 
@@ -37,8 +45,12 @@ production environment and redeploy. Local development can use `.env.local`
 
 Add only verified product records to `lib/products.js`: name, ASIN,
 direct Amazon URL, primary category, related article slugs, active status and
-an editorial explanation. The catalog is currently empty, with no invented
-ASINs, products, affiliate URLs or prices. The optional image record reserves
+an editorial explanation. The 14 records from the earlier catalog commit are
+preserved as **inactive candidates**. That commit described them as verified
+without retaining verification evidence; independently check each live listing
+and its name, ASIN and specifications before marking a record active. The two
+former Useful Finds candidates belong to Home. No candidates, product links,
+images or prices are published. The optional image record reserves
 a local asset path, alt text and proof of authorization; never download retailer
 images without permission. No product image is displayed until an authorized
 asset and rendering configuration are supplied.
@@ -52,8 +64,9 @@ fields or urgency messages exist.
 ## Analytics without a paid service
 
 Vercel Web Analytics is installed behind `NEXT_PUBLIC_ENABLE_ANALYTICS`.
-The existing team is Hobby: free pageviews have a capped allowance and no
-automatic paid overage. It remains **off**, because Vercel CLI requires the
+The existing team was confirmed to be Hobby on October 8, 2026: free pageviews
+have a capped allowance and no automatic paid overage. It remains **off**;
+the authenticated CLI returned `action_required` and explicitly requires the
 account owner to interactively confirm activation. The owner can run:
 
 ```sh
@@ -83,7 +96,19 @@ project `nuvora-finds` is linked to that repository and retains its existing
 production domain, https://nuvora-finds.vercel.app. No replacement project,
 database or paid service is needed. All editorial routes are generated statically;
 system fonts and original CSS illustrations require no third-party image requests.
-Pinterest-related save guidance remains in the article layout.
+Pinterest-related save guidance remains in the article layout, with a working
+save link that passes only the public article URL, title and editorial image.
+No Pinterest SDK or tracking script is loaded.
+
+October 8 audit: all ten guides already contained 642–708 words and seven
+sections. Existing lint and build passed, but the content test failed because
+the catalog contained 14 active products while it expected none. Fixed by
+retaining all records inactive and testing that they cannot emit Amazon links.
+The existing tracking configuration was cleared in Production, Preview and
+Development to honor the requested unactivated Amazon architecture. No IDs,
+credentials or retailer media were invented. Added hostile-URL tests for the
+future link builder, per-guide social graphics, data-driven date display,
+consistent branded titles, category breadcrumbs and HTTP audit tooling.
 
 Baseline audit: build passed with a CSS alignment warning; no lint command or
 tests existed; articles had only short summaries; mobile navigation was hidden;

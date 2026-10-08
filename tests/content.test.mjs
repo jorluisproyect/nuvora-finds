@@ -18,4 +18,7 @@ test('Each preserved guide is substantial, distinct and assigned to a real categ
   }
   assert.equal(new Set(paragraphs).size, paragraphs.length, 'No duplicate editorial paragraphs');
 });
-test('No unverified products are published', () => assert.equal(products.length, 0));
+test('Existing product candidates are retained without publishing unverified recommendations', () => {
+  assert.ok(products.length > 0, 'Preserve the existing catalog for verification');
+  assert.ok(products.every(product => product.active === false));
+});

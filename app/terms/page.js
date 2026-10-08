@@ -7,11 +7,11 @@ export default function TermsPage() {
     <section className="section prose-page">
       <span className="eyebrow">LEGAL</span>
       <h1>Terms of Use</h1>
-      <p>Last updated: October 7, 2026.</p>
+      <p>Last updated: October 8, 2026.</p>
       <h2>Editorial information</h2>
       <p>The information on Nuvora Finds is provided for general informational and inspiration purposes. Product suitability, dimensions, installation requirements and safety considerations should always be verified before purchase or use.</p>
       <h2>External links</h2>
-      <p>The site may add links to third-party websites in the future. Nuvora Finds does not control third-party websites, availability, prices, policies or product claims.</p>
+      <p>The site links to third-party websites, including GitHub for feedback and Pinterest for saving guides. Future recommendations may also link to retailers. Nuvora Finds does not control third-party websites, availability, prices, policies or product claims.</p>
       <h2>Use of our content</h2>
       <p>You may read, save links to and share our guides for personal use. The original editorial text and site identity belong to Nuvora Finds. Do not republish substantial portions as your own work or imply our endorsement without permission.</p>
       <h2>Practical and safety limits</h2>

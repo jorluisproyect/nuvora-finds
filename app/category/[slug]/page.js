@@ -24,10 +24,12 @@ export default async function CategoryPage({ params }) {
     <section className="section page-section">
       <StructuredData data={breadcrumbSchema([{ name: 'Nuvora Finds', path: '/' }, { name: category.name, path: '/category/' + category.slug }])} />
       <div className="page-hero">
+        <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/">Nuvora Finds</Link><span aria-hidden="true"> / </span><span aria-current="page">{category.name}</span></nav>
         <span className="category-icon large">{category.icon}</span>
         <span className="eyebrow">NUVORA CATEGORY</span>
         <h1>{category.name}</h1>
         <p>{category.description}</p>
+        <p className="meta">{list.length} practical guides · By Nuvora Finds</p>
       </div>
       <div className="article-list">
         {list.length ? list.map((article, index) => (

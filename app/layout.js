@@ -49,6 +49,7 @@ export default function RootLayout({ children }) {
             <p>Thoughtful ideas and useful finds for everyday living.</p>
           </div>
           <div className="footer-links">
+            <Link href="/picks">Nuvora Picks</Link>
             <Link href="/about">About</Link>
             <Link href="/contact">Contact</Link>
             <Link href="/privacy">Privacy</Link>
